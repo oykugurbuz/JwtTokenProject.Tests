@@ -38,8 +38,9 @@ JwtTokenProject.Tests/
         private readonly Mock<IHubContext<ExcelProgressBarHub>> _mockExcelHub;
         private readonly Mock<INotificationServices> _mockNotificationService;
         private readonly AuthController _controller;
- ```
+       ```
 - Gerçek veritabanına veya HTTP isteğine ihtiyaç duymaz.Gerçek veritabanından bağlanmaz, RAMüzerinde çalışan geçici bir veritabanı oluşturur.Test sonunda veriler kaybolur.
+
 ```csharp
   var options = new DbContextOptionsBuilder<ApplicationDbContext>()
       .UseInMemoryDatabase(databaseName: "TestDb")
@@ -65,25 +66,26 @@ Amacı: Var olmayan bir kullanıcı için ArgumentException fırlatıyor mu?
 
 
 ### 🔹 2. Integration Test (LoginIntegrationTest.cs)
-API’nin uçtan uca (end-to-end) davranışını test eder.
+- API’nin uçtan uca (end-to-end) davranışını test eder.
 
-Gerçek HTTP istekleri (HttpClient) üzerinden /api/Auth/login endpoint’ini dener.
+- Gerçek HTTP istekleri (HttpClient) üzerinden /api/Auth/login endpoint’ini dener.
 
-WebApplicationFactory<Program> kullanarak test sırasında API’yi in-memory olarak ayağa kaldırır.
+- WebApplicationFactory<Program> kullanarak test sırasında API’yi in-memory olarak ayağa kaldırır.
 
-- Test edilen senaryolar:
+#### Test edilen senaryolar:
 
-/api/Auth/login endpoint’i doğru kullanıcı bilgileriyle 200 OK döndürür.
+- /api/Auth/login endpoint’i doğru kullanıcı bilgileriyle 200 OK döndürür.
 
-Dönen içerik boş değildir ve JWT token içerir.
+- Dönen içerik boş değildir ve JWT token içerir.
 
-Hatalı bilgilerle istek atıldığında 401 Unauthorized döner.
+- Hatalı bilgilerle istek atıldığında 401 Unauthorized döner.
 
 ## ▶️ Testleri Çalıştırma
 
 Test prjesini çalıştırmak için terminalde:
-
+```markdown
 dotnet test JwtTokenProject.Tests/JwtTokenProject.Tests.csproj
+```
 
 ## 🎯 Hedef
 
