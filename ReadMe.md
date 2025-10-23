@@ -1,4 +1,4 @@
-#JWTTokenProject.Test
+# JWTTokenProject.Test
 
 ## 🧩 Proje Hakkında
 
@@ -6,13 +6,13 @@ Bu proje, JwtTokenProject API’si için(https://github.com/oykugurbuz/JwtToken_
 Amaç, kimlik doğrulama (authentication) sürecinin hem izole edilmiş (mock verilerle) hem de gerçek API üzerinden test edilmesidir.
 
 ## 📁 Klasör Yapısı
-
+```markdown
 JwtTokenProject.Tests/
 │
 ├── AuthControllerTests.cs       → Unit testler
 ├── LoginIntegrationTest.cs      → Integration testler
 └── JwtTokenProject.Tests.csproj → Test projesi yapılandırma dosyası
-
+```
 ## ⚙️ Kullanılan Teknolojiler
 
 - xUnit → Test framework’ü
@@ -38,14 +38,14 @@ JwtTokenProject.Tests/
         private readonly Mock<IHubContext<ExcelProgressBarHub>> _mockExcelHub;
         private readonly Mock<INotificationServices> _mockNotificationService;
         private readonly AuthController _controller;
-
+ ```
 - Gerçek veritabanına veya HTTP isteğine ihtiyaç duymaz.Gerçek veritabanından bağlanmaz, RAMüzerinde çalışan geçici bir veritabanı oluşturur.Test sonunda veriler kaybolur.
 ```csharp
   var options = new DbContextOptionsBuilder<ApplicationDbContext>()
       .UseInMemoryDatabase(databaseName: "TestDb")
       .Options;
   _mockContext = new ApplicationDbContext(options);
-
+ ```
   #### GenerateJwtToken_ShouldReturnValidToken_WhenUserExists Methodu
 
   Amacı : Var olan bir kullanıcı için üretilen tokenın geçerli olup olmadığı test edilir.
