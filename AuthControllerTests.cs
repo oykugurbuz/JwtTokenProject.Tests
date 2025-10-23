@@ -81,15 +81,14 @@ namespace JwtTokenProject.Tests
             // //Act(Eylem): GenerateJwtToken methodunu çağırma oradaki dönen token'ı alma. method private olduğu için reflection ile çağırıyoruz
 
             var token = typeof(AuthController)
-                .GetMethod("GenerateJwtToken", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-                .Invoke(_controller, new object[] { "oyku" }) as string;
+                .GetMethod("GenerateJwtToken", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance) 
+                .Invoke(_controller, new object[] { "oyku" }) as string; 
 
-            // Assert
-            //Assert(Doğrulama): dönen token'ın null olmadığını ve boş olmadığını doğrulama + üç parçalı token yapısına sahip olduğunu doğrulama
+           
             token.Should().NotBeNullOrEmpty(); 
             token.Split(".").Should().HaveCount(3); // headers.payload.signature 
 
-            // Token sahte mi değil mi uygulamaya mı ait mi kontrolü
+            
             var handler = new JwtSecurityTokenHandler();
             
             var validationParams = new TokenValidationParameters
@@ -127,7 +126,7 @@ namespace JwtTokenProject.Tests
             };
 
             // Assert
-            act.Should().Throw<TargetInvocationException>() //exception doğrudan fırlatılmaz, TargetInvocationException içine sarılır
+            act.Should().Throw<TargetInvocationException>() 
                 .WithInnerException<ArgumentException>()
                 .WithMessage("Kullanıcı bulunamadı.");
         }
@@ -140,13 +139,13 @@ namespace JwtTokenProject.Tests
             _mockContext.AppUserInfos.Add(user);
             _mockContext.SaveChanges();
 
-            _mockConfig.SetupGet(x => x["Jwt:Key"]).Returns(string.Empty);
+            _mockConfig.SetupGet(x => x["Jwt:Key"]).Returns(string.Empty); 
 
             // Act
             Action act = () =>
             {
                 typeof(AuthController)
-                    .GetMethod("GenerateJwtToken", BindingFlags.NonPublic |.BindingFlags.Instance)
+                    .GetMethod("GenerateJwtToken", BindingFlags.NonPublic |BindingFlags.Instance)
                     .Invoke(_controller, new object[] { "testuser" });
             };
 
