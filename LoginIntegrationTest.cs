@@ -9,11 +9,11 @@ using Microsoft.Extensions.Configuration;
 
 namespace JwtTokenProject.Tests.Integration
 {
-    public class AuthIntegrationTests
+    public class loginIntegrationTests
     {
         private readonly HttpClient _client;
 
-        public AuthIntegrationTests()
+        public loginIntegrationTests()
         {
 
             var factory = new WebApplicationFactory<Program>()
